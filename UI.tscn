@@ -1,0 +1,242 @@
+[gd_scene load_steps=13 format=3 uid="uid://cpohvip15wwc0"]
+
+[ext_resource type="Script" path="res://UIManager.gd" id="1_t5ara"]
+[ext_resource type="Script" path="res://Enemy.gd" id="2_0wyy1"]
+[ext_resource type="Texture2D" uid="uid://by6d4808paoev" path="res://WhatsApp Image 2024-09-03 at 00.21.10.jpeg" id="3_8nt5c"]
+[ext_resource type="Script" path="res://FightManager.gd" id="3_bv7wc"]
+[ext_resource type="Script" path="res://Player.gd" id="4_aeuey"]
+
+[sub_resource type="Theme" id="Theme_oxgsn"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_mxh34"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0p2tl"]
+bg_color = Color(1, 0, 0.027451, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w04xr"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_380ov"]
+bg_color = Color(3.7608e-06, 0.64143, 0.931699, 1)
+corner_detail = 1
+
+[sub_resource type="Theme" id="Theme_2kcyw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hmmug"]
+bg_color = Color(1, 0, 0, 1)
+
+[node name="Control" type="Control" node_paths=PackedStringArray("fight_manager")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_t5ara")
+fight_manager = NodePath("FightManager")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_oxgsn")
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+material = SubResource("CanvasItemMaterial_mxh34")
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ColorRect" type="ColorRect" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(1.16275e-06, 0.690831, 0.843045, 1)
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 40
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="AttackButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 30
+text = "ATAQUE"
+
+[node name="SkillButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 30
+text = "HABILIDADES"
+
+[node name="ItensButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 30
+text = "ITENS"
+
+[node name="DodgeButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 30
+text = "ESQUIVA"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="PlayerLife" type="ProgressBar" parent="MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(2.08165e-12, 20)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/fill = SubResource("StyleBoxFlat_0p2tl")
+value = 100.0
+show_percentage = false
+
+[node name="PlayerStamina" type="ProgressBar" parent="MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(2.08165e-12, 20)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_w04xr")
+theme_override_styles/fill = SubResource("StyleBoxFlat_380ov")
+value = 100.0
+allow_lesser = true
+show_percentage = false
+
+[node name="Control" type="Control" parent="MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ItemList" type="ItemList" parent="MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer/VBoxContainer"]
+clip_contents = false
+custom_minimum_size = Vector2(2.08165e-12, 2.08165e-12)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 30
+allow_search = false
+auto_height = true
+text_overrun_behavior = 4
+item_count = 2
+same_column_width = true
+fixed_column_width = 1000
+icon_mode = 0
+item_0/text = "fwefewfwashoeghoiwernfmoiewjfowie"
+item_1/text = "wefwefewfewfw"
+
+[node name="Texter" type="ItemList" parent="MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(2.08165e-12, 2.08165e-12)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 30
+allow_search = false
+text_overrun_behavior = 0
+same_column_width = true
+icon_mode = 0
+
+[node name="Enemy" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -221.5
+offset_top = 42.0
+offset_right = 221.5
+offset_bottom = 491.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+script = ExtResource("2_0wyy1")
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureRect" parent="Enemy"]
+layout_mode = 0
+offset_left = -18.4998
+offset_right = 556.5
+offset_bottom = 537.0
+scale = Vector2(0.802134, 0.838316)
+texture = ExtResource("3_8nt5c")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -540.0
+offset_bottom = -336.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="EnemyHealthBar" type="ProgressBar" parent="Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.006
+anchor_bottom = 0.5
+offset_left = -344.0
+offset_top = -29.0
+offset_right = -66.5201
+offset_bottom = -2.0
+grow_horizontal = 0
+grow_vertical = 2
+theme = SubResource("Theme_2kcyw")
+theme_override_styles/fill = SubResource("StyleBoxFlat_hmmug")
+value = 100.0
+show_percentage = false
+
+[node name="FightManager" type="Node2D" parent="." node_paths=PackedStringArray("player", "enemy")]
+script = ExtResource("3_bv7wc")
+player = NodePath("../Player")
+enemy = NodePath("../Enemy")
+
+[node name="Player" type="Node2D" parent="."]
+position = Vector2(-3, 0)
+script = ExtResource("4_aeuey")
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer/VBoxContainer/AttackButton" to="." method="_on_attack_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer/VBoxContainer/SkillButton" to="." method="_on_skill_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer/VBoxContainer/ItensButton" to="." method="_on_itens_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer/VBoxContainer/DodgeButton" to="." method="_on_dodge_button_pressed"]
+[connection signal="item_clicked" from="MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer/VBoxContainer/ItemList" to="." method="_on_item_list_item_clicked"]
+[connection signal="dodged" from="Enemy" to="." method="_on_enemy_dodged"]
+[connection signal="life_changed" from="Enemy" to="." method="_on_enemy_life_changed"]
+[connection signal="on_action" from="Enemy" to="." method="_on_enemy_on_action"]
+[connection signal="played" from="Enemy" to="FightManager" method="_on_enemy_played"]
+[connection signal="fighter_changed" from="FightManager" to="." method="_on_fight_manager_fighter_changed"]
+[connection signal="toggle_turned" from="FightManager" to="." method="_on_fight_manager_toggle_turned"]
+[connection signal="life_changed" from="Player" to="." method="_on_player_life_changed"]
+[connection signal="not_enough_stamina" from="Player" to="." method="_on_player_not_enough_stamina"]
+[connection signal="on_action" from="Player" to="." method="_on_player_on_action"]
+[connection signal="played" from="Player" to="FightManager" method="_on_player_played"]
+[connection signal="stamina_changed" from="Player" to="." method="_on_player_stamina_changed"]
