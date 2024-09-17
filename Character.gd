@@ -5,7 +5,8 @@ class_name Character
 var stamina: int = 100:
 	set(val):
 		if (val > stamina):
-			on_action.emit("%s recuperou %d de stamina" % [name, val - life])
+			pass
+			#on_action.emit("%s recuperou %d de stamina" % [name, val - life])
 		stamina = val
 		if (val > 100):
 			stamina = 100

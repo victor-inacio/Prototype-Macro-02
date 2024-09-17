@@ -196,12 +196,8 @@ func _add_to_texter(text: String):
 func _on_player_on_action(action: String):
 	_add_to_texter(action)
 	_disable_all()
-	await get_tree().create_timer(0.5).timeout
-	_enable_all()
 	
 func _on_enemy_on_action(action: String):
 	_add_to_texter(action)
 	_disable_all()
-	await get_tree().create_timer(0.5).timeout
-	_enable_all()
 	

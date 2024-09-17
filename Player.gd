@@ -21,12 +21,12 @@ func play(mode: Mode, what: String, enemy: Character):
 			if (stamina - stamina_to_use <= 0):
 				not_enough_stamina.emit()
 				return		
-			var damage = 10
+			var damage = 30
 			if (buffed > 0):
 				damage += 10
 				buffed -= 1
 			enemy.take_damage(self, damage)
-			stamina -= 10
+			stamina -= 5
 		Mode.ITEM:
 			match (what):
 				"Monster (+10 Stamina)":
