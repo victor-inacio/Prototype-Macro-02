@@ -9,15 +9,21 @@ func _ready():
 func _process(delta):
 	pass
 	
-func play(player: Player):
+func play(player: Player) -> AttackResult:
 	var rand_integer = randi_range(0, 3)
 	
-	if (rand_integer == Mode.ITEM):
-		play(player)
-		return
+	#if (rand_integer == Mode.ITEM):
+		#play(player)
+		#return
 	
+	var index = randi_range(0, len(attacks) - 1)
+	var attack = attacks[index]
+	var attack_result = attack.get_result()
 	
-	
+	_post_play(Character.Mode.ATTACK)
+	return attack_result
+		
+
 	match (rand_integer):
 		Mode.ATTACK:
 			var damage = 10
@@ -32,6 +38,6 @@ func play(player: Player):
 			player.take_damage(self, damage)
 			pass
 	
-	_post_play(rand_integer)
+	
 	
 

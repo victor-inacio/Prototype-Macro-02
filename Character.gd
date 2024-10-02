@@ -14,6 +14,11 @@ var stamina: int = 100:
 			stamina = 0
 		stamina_changed.emit(stamina)
 
+@export
+var attacks: Array[Attack] = []
+
+var roundsToWait = 0
+
 signal stamina_changed
 signal on_action
 

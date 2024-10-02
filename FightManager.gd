@@ -15,6 +15,19 @@ var player: Player
 @export
 var enemy: Enemy
 
+var action_queue = {
+	'player': {
+		'action': null,
+		'rounds_to_wait': 0
+	},
+	'enemy': {
+		'action': null,
+		'rounds_to_wait': 0
+	}
+}	
+
+var enemy_enqueued_action: AttackResult
+
 var current_fighter: Character:
 	set(val):
 		current_fighter = val
@@ -29,8 +42,36 @@ func _handle_fighter_changed(val: Character):
 	if (val is Player):
 		pass
 	else:
-		enemy.play(player)
+		var queue = action_queue['enemy']['rounds_to_wait']
 		
+		if (queue > 0):
+			action_queue['enemy']['rounds_to_wait'] -= 1
+			_toggle_turn()
+			return
+		
+		var action: AttackResult = enemy.play(player) if action_queue['enemy']['action'] == null else action_queue['enemy']['action']
+		
+		if (action.isEnqueued):
+			if (action_queue['enemy']['action'] == null):
+				action_queue['enemy']['rounds_to_wait'] = action.roundsToWait
+				action_queue['enemy']['action'] = action
+				_toggle_turn()
+				return
+			
+				
+			
+		var damage = action.damageGiven
+		
+		player.life -= damage
+	
+	
+	
+	
+
+func _enqueue_action(target: String, action: AttackResult):
+	action_queue[target]['action'] = action
+	action_queue[target]['rounds_to_wait'] = action.roundsToWait
+	
 	
 func _toggle_turn():
 
