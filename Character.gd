@@ -2,11 +2,26 @@ extends Node
 
 class_name Character
 
+@export
+var max_stamina: int
+
+@export
 var stamina: int = 100:
 	set(val):
 			#on_action.emit("%s recuperou %d de stamina" % [name, val - life])
-		stamina = clamp(val, 0, 100)
+		stamina = clamp(val, 0, max_stamina)
 		stamina_changed.emit(stamina)
+		
+@export 
+var max_life: int
+
+@export 
+var life: int : 
+	set(val):
+		if (val > life):
+			on_action.emit("%s curou %d de vida" % [name, val - life])
+		life = clamp(val, 0, max_life)
+		life_changed.emit(life)
 
 @export
 var attacks: Array[Attack] = []
@@ -33,12 +48,6 @@ enum Mode {
 	ATTACK, SKILL, ITEM, DODGE
 }
 
-var life: int = 100: 
-	set(val):
-		if (val > life):
-			on_action.emit("%s curou %d de vida" % [name, val - life])
-		life = clamp(val, 0, 100)
-		life_changed.emit(life)
 
 		
 # TAKE DAMAGE, HEAL, CAUSED DAMAGE, STAMINA, DODGED

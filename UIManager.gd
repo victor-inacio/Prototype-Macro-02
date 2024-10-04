@@ -13,6 +13,9 @@ var player_health_bar: ProgressBar = $MarginContainer/VBoxContainer/HBoxContaine
 @onready
 var player_stamina_bar: ProgressBar = $MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer/PlayerStamina
 
+@onready
+var player: Player = $Player
+
 var all_buttons: Array[Button]
 
 @export
@@ -47,7 +50,10 @@ func _ready():
 		$MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer/VBoxContainer/DodgeButton,
 	]
 	
+	var enemy = fight_manager.enemy
 	
+	player_health_bar.max_value = player.max_life
+	enemy_health_bar.max_value = enemy.max_life
 	
 	fight_manager.start(fight_manager.enemy)
 	

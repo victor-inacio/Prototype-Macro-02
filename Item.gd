@@ -23,12 +23,14 @@ var damage_increase_type: Type
 @export
 var damage_increase: int
 
-func get_result(target: Character) -> ItemResult:
+func get_result(user: Character, target: Character) -> ItemResult:
 	var result: ItemResult = ItemResult.new()
 	
-	result.damage_increase = damage_increase if damage_increase_type == Type.NUMBER else (float)(damage_increase) / 100 * target.damage 
-	result.stamina_increase = stamina_increase if stamina_increase_type == Type.NUMBER else (float)(stamina_increase) / 100 * target.stamina 
-	result.life_increase = life_increase if life_increase_type == Type.NUMBER else (float)(life_increase) / 100 * target.life 
+	result.damage_increase = damage_increase if damage_increase_type == Type.NUMBER else (float)(damage_increase) / 100 * user.damage 
+	result.stamina_increase = stamina_increase if stamina_increase_type == Type.NUMBER else (float)(stamina_increase) / 100 * user.max_stamina 
+	result.life_increase = life_increase if life_increase_type == Type.NUMBER else (float)(life_increase) / 100 * user.max_life 
+
+	print((float)(life_increase) / 100)
 
 	return result	
 

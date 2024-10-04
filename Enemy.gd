@@ -10,9 +10,6 @@ func _process(delta):
 	pass
 	
 func play(player: Player) -> ActionResult:
-	
-
-	
 	var actions: Array[Action] = []
 	
 	for attack in self.attacks:
@@ -33,7 +30,7 @@ func play(player: Player) -> ActionResult:
 				items.remove_at(index)
 			index += 1
 	
-	var result = action.get_result(player) 
+	var result = action.get_result(self, player) 
 	
 	_post_play(action)
 	return result

@@ -1,11 +1,10 @@
-[gd_scene load_steps=16 format=3 uid="uid://cpohvip15wwc0"]
+[gd_scene load_steps=15 format=3 uid="uid://cpohvip15wwc0"]
 
 [ext_resource type="Script" path="res://UIManager.gd" id="1_t5ara"]
 [ext_resource type="Script" path="res://Enemy.gd" id="2_0wyy1"]
 [ext_resource type="Script" path="res://Item.gd" id="3_8ap2d"]
 [ext_resource type="Texture2D" uid="uid://by6d4808paoev" path="res://WhatsApp Image 2024-09-03 at 00.21.10.jpeg" id="3_8nt5c"]
 [ext_resource type="Script" path="res://FightManager.gd" id="3_bv7wc"]
-[ext_resource type="Resource" uid="uid://4qdb883cxqbv" path="res://BasicAttack.tres" id="3_twa44"]
 [ext_resource type="Script" path="res://Player.gd" id="4_aeuey"]
 
 [sub_resource type="Theme" id="Theme_oxgsn"]
@@ -24,10 +23,10 @@ corner_detail = 1
 
 [sub_resource type="Resource" id="Resource_ms5sp"]
 script = ExtResource("3_8ap2d")
-life_increase_type = 0
-life_increase = 100
+life_increase_type = 1
+life_increase = 50
 stamina_increase_type = 0
-stamina_increase = 0
+stamina_increase = 10170
 damage_increase_type = 0
 damage_increase = 20
 
@@ -127,7 +126,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/fill = SubResource("StyleBoxFlat_0p2tl")
 value = 100.0
-show_percentage = false
 
 [node name="PlayerStamina" type="ProgressBar" parent="MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(2.08165e-12, 20)
@@ -188,7 +186,9 @@ offset_bottom = 491.0
 grow_horizontal = 2
 size_flags_horizontal = 4
 script = ExtResource("2_0wyy1")
-attacks = Array[Resource("res://Attack.gd")]([ExtResource("3_twa44")])
+max_stamina = 100
+max_life = 500
+life = 249
 items = Array[ExtResource("3_8ap2d")]([SubResource("Resource_ms5sp")])
 metadata/_edit_use_anchors_ = true
 

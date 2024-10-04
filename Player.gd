@@ -1,4 +1,4 @@
-class_name Player extends Character
+class_name Player extends Character        
 
 signal not_enough_stamina
 
@@ -21,9 +21,9 @@ func play(mode: Mode, what: String, enemy: Character):
 			if (stamina - stamina_to_use <= 0):
 				not_enough_stamina.emit()
 				return		
-			var damage = 30
+			var damage = 100
 			if (buffed > 0):
-				damage += 10
+				damage += 100
 				buffed -= 1
 			enemy.take_damage(self, damage)
 			stamina -= 5

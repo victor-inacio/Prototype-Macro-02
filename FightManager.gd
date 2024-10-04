@@ -15,17 +15,6 @@ var player: Player
 @export
 var enemy: Enemy
 
-var action_queue = {
-	'player': {
-		'action': null,
-		'rounds_to_wait': 0
-	},
-	'enemy': {
-		'action': null,
-		'rounds_to_wait': 0
-	}
-}	
-
 var enemy_enqueued_action: AttackResult
 
 var current_fighter: Character:
@@ -100,10 +89,6 @@ func _handle_fighter_changed(val: Character):
 				
 			enemy.decrease_abilities()
 			_toggle_turn()
-	
-func _enqueue_action(target: String, action: AttackResult):
-	action_queue[target]['action'] = action
-	action_queue[target]['rounds_to_wait'] = action.roundsToWait
 	
 	
 func _toggle_turn():
