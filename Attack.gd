@@ -1,4 +1,4 @@
-class_name Attack extends Resource
+class_name Attack extends Action
 
 
 @export_range(0, 1000)
@@ -10,7 +10,7 @@ var chance_of_damage: int
 @export_range(0, 100)
 var execution_time: int = 0
 
-func get_result() -> AttackResult:
+func get_result(target: Character) -> AttackResult:
 	var result = AttackResult.new()
 	var random = randi_range(0, 100)
 	

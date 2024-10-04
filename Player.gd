@@ -51,4 +51,4 @@ func play(mode: Mode, what: String, enemy: Character):
 			stamina -= 20
 			
 	
-	_post_play(mode)	
+	_post_play(Attack.new())	

@@ -1,4 +1,4 @@
-class_name AttackResult
+class_name AttackResult extends ActionResult
 
 
 var damageGiven: int = 0

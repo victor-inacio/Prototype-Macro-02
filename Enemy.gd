@@ -9,19 +9,34 @@ func _ready():
 func _process(delta):
 	pass
 	
-func play(player: Player) -> AttackResult:
-	var rand_integer = randi_range(0, 3)
+func play(player: Player) -> ActionResult:
 	
-	#if (rand_integer == Mode.ITEM):
-		#play(player)
-		#return
+
 	
-	var index = randi_range(0, len(attacks) - 1)
-	var attack = attacks[index]
-	var attack_result = attack.get_result()
+	var actions: Array[Action] = []
 	
-	_post_play(Character.Mode.ATTACK)
-	return attack_result
+	for attack in self.attacks:
+		actions.append(attack)
+	
+	for item in self.items:
+		actions.append(item)
+	
+	
+	var rand_integer = randi_range(0, len(actions) - 1)		
+	
+	var action = actions[rand_integer]
+	
+	var index = 0
+	if (action is Item):
+		for item in items:
+			if (item.equals(action)):
+				items.remove_at(index)
+			index += 1
+	
+	var result = action.get_result(player) 
+	
+	_post_play(action)
+	return result
 		
 
 	match (rand_integer):

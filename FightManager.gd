@@ -42,32 +42,65 @@ func _handle_fighter_changed(val: Character):
 	if (val is Player):
 		pass
 	else:
-		var queue = action_queue['enemy']['rounds_to_wait']
+		if (enemy.has_scheduled_action()):
+			var scheduled_action: ScheduledAction = enemy.scheduled_action
 		
-		if (queue > 0):
-			action_queue['enemy']['rounds_to_wait'] -= 1
-			_toggle_turn()
-			return
-		
-		var action: AttackResult = enemy.play(player) if action_queue['enemy']['action'] == null else action_queue['enemy']['action']
-		
-		if (action.isEnqueued):
-			if (action_queue['enemy']['action'] == null):
-				action_queue['enemy']['rounds_to_wait'] = action.roundsToWait
-				action_queue['enemy']['action'] = action
-				_toggle_turn()
-				return
+			var rounds_left = scheduled_action.rounds_left()
 			
+			if (rounds_left == 0):
+				var result = scheduled_action.action_result
+				var damage = result.damageGiven
 				
+				var damage_increase = 0
+				
+				for ability in enemy.abilities:
+					if ability is DamageIncrease:
+						damage_increase += ability.damage_increase
+				
+				player.life -= damage + damage_increase
+			else:
+				scheduled_action.increase_round()
+				   
 			
-		var damage = action.damageGiven
-		
-		player.life -= damage
+			_toggle_turn()
+			return 
+		else:
+			var action = enemy.play(player)
+			
+			if (action is AttackResult):
+				if (action.isEnqueued):
+					var time = action.roundsToWait
+					enemy.schedule_action(action, time)
+					
+					_toggle_turn()
+					return
+				
+				var damage = action.damageGiven
+				
+				var damage_increase = 0
+				
+				for ability in enemy.abilities:
+					if ability is DamageIncrease:
+						damage_increase += ability.damage_increase
+						
+				
+				player.life -= damage + damage_increase
+				
+				
 	
+			if (action is ItemResult):
+				enemy.life += action.life_increase
+				enemy.stamina += action.stamina_increase
+				
+				if (action.damage_increase != 0):
+					var ability = DamageIncrease.new(action.damage_increase)
+					enemy.abilities.append(ability)
+					
+				
+				
+			enemy.decrease_abilities()
+			_toggle_turn()
 	
-	
-	
-
 func _enqueue_action(target: String, action: AttackResult):
 	action_queue[target]['action'] = action
 	action_queue[target]['rounds_to_wait'] = action.roundsToWait
@@ -95,11 +128,12 @@ func _handle_character_play(character: Character):
 	
 	if (character is Player):
 		character.stamina += 5
+		_toggle_turn()
 	
-	_toggle_turn()
 	
 func _on_player_played(player: Player):
 	_handle_character_play(player)
+	
 
 func _on_enemy_played(enemy: Enemy):
 	_handle_character_play(enemy)
