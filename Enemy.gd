@@ -18,8 +18,8 @@ func play(player: Player) -> ActionResult:
 	for item in self.items:
 		actions.append(item)
 	
-	
 	var rand_integer = randi_range(0, len(actions) - 1)		
+		
 	
 	var action = actions[rand_integer]
 	

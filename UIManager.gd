@@ -16,6 +16,10 @@ var player_stamina_bar: ProgressBar = $MarginContainer/VBoxContainer/HBoxContain
 @onready
 var player: Player = $Player
 
+var items: Array[Item]:
+	get:
+		return player.items
+
 var all_buttons: Array[Button]
 
 @export
@@ -29,12 +33,6 @@ var attacks = [
 
 var skills = [
 		"Atirar com Shotgun (15 Dano, -20 Stamina)"
-]
-
-var items = [
-	"Biscoito Negrito (+10 HP)",
-	"Monster (+10 Stamina)",
-	"Soco Ingles (+10 de Dano por 2 Turnos) 1x"
 ]
 
 var dodges = [
@@ -81,8 +79,9 @@ func _on_itens_button_pressed():
 	_clear_item_list()
 	item_list.visible = true
 	#texter.visible = false
-	for attack in items:
-		item_list.add_item(attack)
+
+	for item in items:
+		item_list.add_item(item.name)
 	mode = Character.Mode.ITEM
 
 
@@ -109,7 +108,7 @@ func _on_item_list_item_clicked(index, at_position, mouse_button_index):
 		Character.Mode.ATTACK:
 			item = attacks[index]
 		Character.Mode.ITEM:
-			item = items[index]
+			item = items[index].name
 			items.remove_at(index)
 		Character.Mode.DODGE:
 			item = dodges[index]
@@ -190,7 +189,9 @@ func _on_player_not_enough_stamina():
 	
 func _add_to_texter(text: String):
 	var texter_count = texter.item_count
-	texter.mouse_force_pass_scroll_events
+	
+	
+	
 	texter.add_item(text)
 	texter.select(texter_count)
 	

@@ -6,6 +6,9 @@ enum Type {
 }
 
 @export
+var name: String = "Item Name"
+
+@export
 var life_increase_type: Type
 
 @export 

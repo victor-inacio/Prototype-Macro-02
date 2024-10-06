@@ -75,8 +75,7 @@ func _handle_fighter_changed(val: Character):
 				
 				player.life -= damage + damage_increase
 				
-				
-	
+			
 			if (action is ItemResult):
 				enemy.life += action.life_increase
 				enemy.stamina += action.stamina_increase

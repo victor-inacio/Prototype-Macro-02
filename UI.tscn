@@ -1,10 +1,11 @@
-[gd_scene load_steps=15 format=3 uid="uid://cpohvip15wwc0"]
+[gd_scene load_steps=18 format=3 uid="uid://cpohvip15wwc0"]
 
 [ext_resource type="Script" path="res://UIManager.gd" id="1_t5ara"]
 [ext_resource type="Script" path="res://Enemy.gd" id="2_0wyy1"]
 [ext_resource type="Script" path="res://Item.gd" id="3_8ap2d"]
 [ext_resource type="Texture2D" uid="uid://by6d4808paoev" path="res://WhatsApp Image 2024-09-03 at 00.21.10.jpeg" id="3_8nt5c"]
 [ext_resource type="Script" path="res://FightManager.gd" id="3_bv7wc"]
+[ext_resource type="Script" path="res://Attack.gd" id="3_t81qx"]
 [ext_resource type="Script" path="res://Player.gd" id="4_aeuey"]
 
 [sub_resource type="Theme" id="Theme_oxgsn"]
@@ -21,8 +22,15 @@ bg_color = Color(0, 0, 0, 1)
 bg_color = Color(3.7608e-06, 0.64143, 0.931699, 1)
 corner_detail = 1
 
+[sub_resource type="Resource" id="Resource_awwfa"]
+script = ExtResource("3_t81qx")
+damage = 10
+chance_of_damage = 0
+execution_time = 0
+
 [sub_resource type="Resource" id="Resource_ms5sp"]
 script = ExtResource("3_8ap2d")
+name = "Item Name"
 life_increase_type = 1
 life_increase = 50
 stamina_increase_type = 0
@@ -34,6 +42,16 @@ damage_increase = 20
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hmmug"]
 bg_color = Color(1, 0, 0, 1)
+
+[sub_resource type="Resource" id="Resource_u6535"]
+script = ExtResource("3_8ap2d")
+name = "Eae grupo"
+life_increase_type = 0
+life_increase = 10
+stamina_increase_type = 0
+stamina_increase = 0
+damage_increase_type = 0
+damage_increase = 0
 
 [node name="Control" type="Control" node_paths=PackedStringArray("fight_manager")]
 layout_mode = 3
@@ -157,8 +175,6 @@ allow_search = false
 auto_height = true
 text_overrun_behavior = 4
 item_count = 2
-same_column_width = true
-fixed_column_width = 1000
 icon_mode = 0
 item_0/text = "fwefewfwashoeghoiwernfmoiewjfowie"
 item_1/text = "wefwefewfewfw"
@@ -189,6 +205,7 @@ script = ExtResource("2_0wyy1")
 max_stamina = 100
 max_life = 500
 life = 249
+attacks = Array[ExtResource("3_t81qx")]([SubResource("Resource_awwfa")])
 items = Array[ExtResource("3_8ap2d")]([SubResource("Resource_ms5sp")])
 metadata/_edit_use_anchors_ = true
 
@@ -237,6 +254,10 @@ enemy = NodePath("../Enemy")
 [node name="Player" type="Node2D" parent="."]
 position = Vector2(-3, 0)
 script = ExtResource("4_aeuey")
+max_stamina = 100
+max_life = 100
+life = 100
+items = Array[ExtResource("3_8ap2d")]([SubResource("Resource_u6535")])
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer/VBoxContainer/AttackButton" to="." method="_on_attack_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer/VBoxContainer/SkillButton" to="." method="_on_skill_button_pressed"]
