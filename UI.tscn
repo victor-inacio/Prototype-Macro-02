@@ -149,7 +149,6 @@ theme_override_styles/background = SubResource("StyleBoxFlat_w04xr")
 theme_override_styles/fill = SubResource("StyleBoxFlat_380ov")
 value = 100.0
 allow_lesser = true
-show_percentage = false
 
 [node name="Control" type="Control" parent="MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer"]
 visible = false
@@ -238,7 +237,6 @@ grow_vertical = 2
 theme = SubResource("Theme_2kcyw")
 theme_override_styles/fill = SubResource("StyleBoxFlat_hmmug")
 value = 100.0
-show_percentage = false
 
 [node name="FightManager" type="Node2D" parent="." node_paths=PackedStringArray("player", "enemy")]
 script = ExtResource("3_bv7wc")
