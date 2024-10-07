@@ -95,8 +95,11 @@ func play(action: Action, target: Character) -> ActionResult:
 	if (action is Item):
 		var index = 0
 		for item in items:
-			if (item.equals(action)):
-				items.remove_at(index)
+			if (!item.ilimited):
+				item.quantity -= 1
+				if (item.quantity == 0):
+					items.remove_at(index)
+			
 			index += 1
 	
 	var result = action.get_result(self, target) 

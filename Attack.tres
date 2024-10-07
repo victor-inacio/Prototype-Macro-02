@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Attack" load_steps=2 format=3 uid="uid://dhpuuxet1hmar"]
+
+[ext_resource type="Script" path="res://Attack.gd" id="1_36fcj"]
+
+[resource]
+script = ExtResource("1_36fcj")
+damage = 10
+chance_of_damage = null
+name = "Meu pau"
+execution_time = 3

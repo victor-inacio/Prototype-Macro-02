@@ -90,7 +90,7 @@ func _on_itens_button_pressed():
 
 	for item in items:
 		showing_actions.append(item)
-		item_list.add_item(item.name)
+		item_list.add_item(item.formatted_str())
 	mode = Character.Mode.ITEM
 
 

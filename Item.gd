@@ -6,6 +6,12 @@ enum Type {
 }
 
 @export
+var ilimited: bool = false
+
+@export
+var quantity: int = 1
+
+@export
 var life_increase_type: Type = Type.NUMBER
 
 @export 
@@ -33,6 +39,10 @@ func get_result(user: Character, target: Character) -> ItemResult:
 	print((float)(life_increase) / 100)
 
 	return result	
+	
+func formatted_str():
+	var quantity_str: String = "inf" if ilimited else "%dx" % [quantity]
+	return "%s (%s)" % [name, quantity_str]
 
 func equals(action: Action) -> bool:
 	return life_increase_type == action.life_increase_type and life_increase == action.life_increase and stamina_increase_type == action.stamina_increase_type and stamina_increase == action.stamina_increase and damage_increase_type == action.damage_increase_type and damage_increase == action.damage_increase

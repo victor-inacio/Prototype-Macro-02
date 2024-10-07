@@ -1,12 +1,13 @@
-[gd_scene load_steps=17 format=3 uid="uid://cpohvip15wwc0"]
+[gd_scene load_steps=18 format=3 uid="uid://cpohvip15wwc0"]
 
 [ext_resource type="Script" path="res://UIManager.gd" id="1_t5ara"]
 [ext_resource type="Script" path="res://Enemy.gd" id="2_0wyy1"]
-[ext_resource type="Script" path="res://Item.gd" id="3_8ap2d"]
 [ext_resource type="Texture2D" uid="uid://by6d4808paoev" path="res://WhatsApp Image 2024-09-03 at 00.21.10.jpeg" id="3_8nt5c"]
 [ext_resource type="Script" path="res://FightManager.gd" id="3_bv7wc"]
-[ext_resource type="Script" path="res://Attack.gd" id="3_t81qx"]
+[ext_resource type="Script" path="res://Attack.gd" id="3_s7pl0"]
 [ext_resource type="Script" path="res://Player.gd" id="4_aeuey"]
+[ext_resource type="Resource" uid="uid://dhpuuxet1hmar" path="res://Attack.tres" id="6_8j2tc"]
+[ext_resource type="Script" path="res://Item.gd" id="7_mjbkt"]
 
 [sub_resource type="Theme" id="Theme_oxgsn"]
 
@@ -22,28 +23,30 @@ bg_color = Color(0, 0, 0, 1)
 bg_color = Color(3.7608e-06, 0.64143, 0.931699, 1)
 corner_detail = 1
 
+[sub_resource type="Resource" id="Resource_phiji"]
+script = ExtResource("3_s7pl0")
+damage = 10
+chance_of_damage = 100
+name = "Item Name"
+execution_time = 0
+
 [sub_resource type="Theme" id="Theme_2kcyw"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hmmug"]
 bg_color = Color(1, 0, 0, 1)
 
-[sub_resource type="Resource" id="Resource_dho0o"]
-script = ExtResource("3_t81qx")
-damage = null
-chance_of_damage = null
-name = "Meu pau"
-execution_time = 3
-
-[sub_resource type="Resource" id="Resource_bbsgp"]
-script = ExtResource("3_8ap2d")
-life_increase_type = 1
-life_increase = 100
-stamina_increase_type = null
-stamina_increase = null
-damage_increase_type = null
-damage_increase = null
-name = "Meu pinto murcho"
-execution_time = 3
+[sub_resource type="Resource" id="Resource_tp17j"]
+script = ExtResource("7_mjbkt")
+ilimited = true
+quantity = 3
+life_increase_type = 0
+life_increase = 0
+stamina_increase_type = 0
+stamina_increase = 0
+damage_increase_type = 0
+damage_increase = 0
+name = "Item Name"
+execution_time = 0
 
 [node name="Control" type="Control" node_paths=PackedStringArray("fight_manager")]
 layout_mode = 3
@@ -197,7 +200,7 @@ script = ExtResource("2_0wyy1")
 max_stamina = 100
 max_life = 100
 life = 30
-dodge_chance = 0
+attacks = Array[ExtResource("3_s7pl0")]([SubResource("Resource_phiji")])
 metadata/_edit_use_anchors_ = true
 
 [node name="TextureRect" type="TextureRect" parent="Enemy"]
@@ -249,8 +252,8 @@ max_stamina = 100
 max_life = 100
 life = 100
 can_dodge = false
-attacks = Array[ExtResource("3_t81qx")]([SubResource("Resource_dho0o")])
-items = Array[ExtResource("3_8ap2d")]([SubResource("Resource_bbsgp")])
+attacks = Array[ExtResource("3_s7pl0")]([ExtResource("6_8j2tc")])
+items = Array[ExtResource("7_mjbkt")]([SubResource("Resource_tp17j")])
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer/VBoxContainer/AttackButton" to="." method="_on_attack_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer/VBoxContainer/SkillButton" to="." method="_on_skill_button_pressed"]

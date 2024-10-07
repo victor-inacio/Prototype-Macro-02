@@ -7,7 +7,6 @@ var name: String = "Item Name"
 var execution_time: int = 0
 
 func get_result(user: Character, target: Character) -> ActionResult:
-	
 	return ActionResult.new()
 	
 func _setup_result(result: ActionResult):
