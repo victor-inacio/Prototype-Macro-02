@@ -24,20 +24,21 @@ corner_detail = 1
 
 [sub_resource type="Resource" id="Resource_qbcu6"]
 script = ExtResource("3_t81qx")
-damage = 10
-chance_of_damage = 100
-execution_time = 0
-name = "Item Name"
+damage = null
+chance_of_damage = null
+name = null
+execution_time = null
 
 [sub_resource type="Resource" id="Resource_cqlrc"]
 script = ExtResource("3_8ap2d")
 life_increase_type = 1
 life_increase = 100
-stamina_increase_type = 0
-stamina_increase = 0
-damage_increase_type = 0
-damage_increase = 0
-name = "Item Name"
+stamina_increase_type = null
+stamina_increase = null
+damage_increase_type = null
+damage_increase = null
+name = null
+execution_time = null
 
 [sub_resource type="Theme" id="Theme_2kcyw"]
 
@@ -46,20 +47,21 @@ bg_color = Color(1, 0, 0, 1)
 
 [sub_resource type="Resource" id="Resource_dho0o"]
 script = ExtResource("3_t81qx")
-damage = 10
-chance_of_damage = 100
-execution_time = 3
+damage = null
+chance_of_damage = null
 name = "Meu pau"
+execution_time = 3
 
-[sub_resource type="Resource" id="Resource_u6535"]
+[sub_resource type="Resource" id="Resource_bbsgp"]
 script = ExtResource("3_8ap2d")
-life_increase_type = 0
-life_increase = 10
-stamina_increase_type = 0
-stamina_increase = 0
-damage_increase_type = 0
-damage_increase = 0
-name = "Item do meu cu"
+life_increase_type = 1
+life_increase = 100
+stamina_increase_type = null
+stamina_increase = null
+damage_increase_type = null
+damage_increase = null
+name = "Meu pinto murcho"
+execution_time = 3
 
 [node name="Control" type="Control" node_paths=PackedStringArray("fight_manager")]
 layout_mode = 3
@@ -266,7 +268,7 @@ max_stamina = 100
 max_life = 100
 life = 100
 attacks = Array[ExtResource("3_t81qx")]([SubResource("Resource_dho0o")])
-items = Array[ExtResource("3_8ap2d")]([SubResource("Resource_u6535")])
+items = Array[ExtResource("3_8ap2d")]([SubResource("Resource_bbsgp")])
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer/VBoxContainer/AttackButton" to="." method="_on_attack_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer/VBoxContainer/SkillButton" to="." method="_on_skill_button_pressed"]

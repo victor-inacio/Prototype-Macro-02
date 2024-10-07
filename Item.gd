@@ -29,7 +29,7 @@ func get_result(user: Character, target: Character) -> ItemResult:
 	result.damage_increase = damage_increase if damage_increase_type == Type.NUMBER else (float)(damage_increase) / 100 * user.damage 
 	result.stamina_increase = stamina_increase if stamina_increase_type == Type.NUMBER else (float)(stamina_increase) / 100 * user.max_stamina 
 	result.life_increase = life_increase if life_increase_type == Type.NUMBER else (float)(life_increase) / 100 * user.max_life 
-
+	_setup_result(result)
 	print((float)(life_increase) / 100)
 
 	return result	

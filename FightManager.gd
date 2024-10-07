@@ -53,13 +53,15 @@ func _handle_fighter_changed(val: Character):
 	
 	
 func process_action(action: ActionResult, fighter: Character, target: Character):
+	if (action.isEnqueued && !action.already_waited):
+		var time = action.roundsToWait
+		fighter.schedule_action(action, time)
+		
+		_toggle_turn()
+		return
+	
 	if (action is AttackResult):
-			if (action.isEnqueued && !action.already_waited):
-				var time = action.roundsToWait
-				fighter.schedule_action(action, time)
-				
-				_toggle_turn()
-				return
+			
 			
 			var damage = action.damageGiven
 			
