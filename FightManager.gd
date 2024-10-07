@@ -62,17 +62,25 @@ func process_action(action: ActionResult, fighter: Character, target: Character)
 	
 	if (action is AttackResult):
 			
+		if (target.last_action is Dodge):
+			var succeeded = target.last_action_result.success
 			
-			var damage = action.damageGiven
-			
-			var damage_increase = 0
-			
-			for ability in fighter.abilities:
-				if ability is DamageIncrease:
-					damage_increase += ability.damage_increase
-					
-			
-			target.life -= damage + damage_increase
+			if (succeeded):
+				target.dodged.emit(target)
+				_toggle_turn()
+				return
+		
+		
+		var damage = action.damageGiven
+		
+		var damage_increase = 0
+		
+		for ability in fighter.abilities:
+			if ability is DamageIncrease:
+				damage_increase += ability.damage_increase
+				
+		
+		target.life -= damage + damage_increase
 			
 		
 	if (action is ItemResult):

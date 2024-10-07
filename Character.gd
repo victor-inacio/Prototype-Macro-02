@@ -2,6 +2,8 @@ extends Node
 
 class_name Character
 
+
+
 @export
 var max_stamina: int
 
@@ -22,12 +24,19 @@ var life: int :
 			on_action.emit("%s curou %d de vida" % [name, val - life])
 		life = clamp(val, 0, max_life)
 		life_changed.emit(life)
+@export 
+var can_dodge = true
+
+@export
+var dodge_chance: int = 100
 
 @export
 var attacks: Array[Attack] = []
 
 @export 
 var items: Array[Item] = []
+
+
 
 var abilities: Array[Ability] = []
 
@@ -42,6 +51,7 @@ signal dodged
 
 
 var last_action: Action
+var last_action_result: ActionResult
 var scheduled_action: ScheduledAction
 
 enum Mode {
@@ -61,6 +71,7 @@ func take_damage(from: Character, damage: int):
 	
 func _post_play(action: Action, result: ActionResult):
 	last_action = action
+	last_action_result = result
 	self.played.emit(self, action, result)
 
 func decrease_abilities():
@@ -95,6 +106,11 @@ func play(action: Action, target: Character) -> ActionResult:
 	
 func get_all_actions() -> Array[Action]:
 	var actions: Array[Action] = []
+	
+	if (can_dodge):
+		var dodge = Dodge.new()
+		dodge.chance_of_success = dodge_chance
+		actions.append(dodge)
 	
 	for item in items:
 		actions.append(item)

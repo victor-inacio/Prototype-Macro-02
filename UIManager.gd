@@ -137,7 +137,12 @@ func _disable_all():
 func _enable_all():
 	_clear_item_list()
 	for button in all_buttons:
+		if (button.text == "ESQUIVA"):
+			button.disabled = !player.can_dodge
+			continue
+		
 		button.disabled = false
+		
 	
 
 func _on_fight_manager_fighter_changed(currFighter: Character):

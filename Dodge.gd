@@ -7,7 +7,7 @@ func get_result(user: Character, target: Character) -> DodgeResult:
 	var result = DodgeResult.new()
 	var random = randi_range(0, 100)		
 	
-	var success = chance_of_success <= random
+	var success = chance_of_success >= random
 	
 	result.success = success
 	
