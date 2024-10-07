@@ -106,8 +106,7 @@ func _on_dodge_button_pressed():
 	_clear_item_list()
 	item_list.visible = true
 	#texter.visible = false
-	for attack in dodges:
-		item_list.add_item(attack)
+	player.play(player.dodge, fight_manager.enemy)
 	mode = Character.Mode.DODGE
 	
 	
@@ -149,7 +148,7 @@ func _enable_all():
 	_clear_item_list()
 	for button in all_buttons:
 		if (button.text == "ESQUIVA"):
-			button.disabled = !player.can_dodge
+			button.disabled = player.dodge == null
 			continue
 		
 		button.disabled = false

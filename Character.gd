@@ -24,11 +24,9 @@ var life: int :
 			on_action.emit("%s curou %d de vida" % [name, val - life])
 		life = clamp(val, 0, max_life)
 		life_changed.emit(life)
-@export 
-var can_dodge = true
 
 @export
-var dodge_chance: int = 100
+var dodge: Dodge
 
 @export
 var attacks: Array[Attack] = []
@@ -109,9 +107,7 @@ func play(action: Action, target: Character) -> ActionResult:
 func get_all_actions() -> Array[Action]:
 	var actions: Array[Action] = []
 	
-	if (can_dodge):
-		var dodge = Dodge.new()
-		dodge.chance_of_success = dodge_chance
+	if (dodge != null):
 		actions.append(dodge)
 	
 	for item in items:
