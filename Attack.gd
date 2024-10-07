@@ -5,7 +5,7 @@ class_name Attack extends Action
 var damage: int = 10
 
 @export_range(0, 100)
-var chance_of_damage: int
+var chance_of_damage: int = 100
 
 @export_range(0, 100)
 var execution_time: int = 0

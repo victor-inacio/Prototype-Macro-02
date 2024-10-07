@@ -37,7 +37,7 @@ signal stamina_changed
 signal on_action
 
 signal life_changed
-signal played
+signal played(player: Character, action: Action, action_result: ActionResult)
 signal dodged
 
 
@@ -59,9 +59,9 @@ func take_damage(from: Character, damage: int):
 	on_action.emit(from.name + " causou " + str(damage) + " de dano em " + self.name )
 	life -= damage
 	
-func _post_play(action: Action):
+func _post_play(action: Action, result: ActionResult):
 	last_action = action
-	self.played.emit(self)
+	self.played.emit(self, action, result)
 
 func decrease_abilities():
 	var index = 0
@@ -78,3 +78,32 @@ func has_scheduled_action() -> bool:
 
 func schedule_action(action: ActionResult, rounds_to_wait: int):
 	scheduled_action = ScheduledAction.new(action, rounds_to_wait)
+	
+func play(action: Action, target: Character) -> ActionResult:
+	
+	if (action is Item):
+		var index = 0
+		for item in items:
+			if (item.equals(action)):
+				items.remove_at(index)
+			index += 1
+	
+	var result = action.get_result(self, target) 
+	
+	_post_play(action, result)
+	return result
+	
+func get_all_actions() -> Array[Action]:
+	var actions: Array[Action] = []
+	
+	for item in items:
+		actions.append(item)
+		
+	for attack in attacks:
+		actions.append(attack)
+	
+			
+	return actions
+	
+	
+	

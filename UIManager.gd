@@ -39,6 +39,8 @@ var dodges = [
 	"Esquivar (Nao leva dano caso ele ataque)"
 ]
 
+var showing_actions: Array[Action] = []
+
 func _ready():
 	_clear_item_list()
 	all_buttons = [
@@ -50,8 +52,13 @@ func _ready():
 	
 	var enemy = fight_manager.enemy
 	
+	
+	
 	player_health_bar.max_value = player.max_life
+	player_health_bar.value = player.life
+	
 	enemy_health_bar.max_value = enemy.max_life
+	enemy_health_bar.value = enemy.life
 	
 	fight_manager.start(fight_manager.enemy)
 	
@@ -62,7 +69,8 @@ func _on_attack_button_pressed():
 	_clear_item_list()
 	item_list.visible = true
 	mode = Character.Mode.ATTACK
-	fight_manager.player.play(mode, "", fight_manager.enemy)
+	var action = player.attacks[0]
+	player.play(action, fight_manager.enemy)
 	
 
 
@@ -81,6 +89,7 @@ func _on_itens_button_pressed():
 	#texter.visible = false
 
 	for item in items:
+		showing_actions.append(item)
 		item_list.add_item(item.name)
 	mode = Character.Mode.ITEM
 
@@ -95,27 +104,21 @@ func _on_dodge_button_pressed():
 	
 	
 func _clear_item_list():
+	showing_actions.clear()
 	if (item_list != null):
 		item_list.clear()
 
 
 
 func _on_item_list_item_clicked(index, at_position, mouse_button_index):
+	
 	var item: String 
 	var player = fight_manager.player
 	var enemy = fight_manager.enemy
-	match (mode):
-		Character.Mode.ATTACK:
-			item = attacks[index]
-		Character.Mode.ITEM:
-			item = items[index].name
-			items.remove_at(index)
-		Character.Mode.DODGE:
-			item = dodges[index]
-		Character.Mode.SKILL:
-			item = skills[index]
+	
+	var action = showing_actions[index]
 			
-	player.play(mode, item, enemy)
+	player.play(action, enemy)
 		
 			
 func _on_enemy_life_changed(health):
@@ -151,7 +154,6 @@ func _on_player_life_changed(life: int):
 
 
 func _on_player_stamina_changed(stamina: int):
-	print("STAMINACHANGED")
 	var tween = create_tween()
 	tween.tween_property(player_stamina_bar, "value", stamina, 0.5).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
 	
@@ -189,9 +191,7 @@ func _on_player_not_enough_stamina():
 	
 func _add_to_texter(text: String):
 	var texter_count = texter.item_count
-	
-	
-	
+
 	texter.add_item(text)
 	texter.select(texter_count)
 	

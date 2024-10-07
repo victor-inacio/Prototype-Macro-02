@@ -15,6 +15,8 @@ var player: Player
 @export
 var enemy: Enemy
 
+var ia: IA = IA.new()
+
 var enemy_enqueued_action: AttackResult
 
 var current_fighter: Character:
@@ -28,11 +30,15 @@ func start(curr_fighter: Character):
 	current_fighter = curr_fighter
 		
 func _handle_fighter_changed(val: Character):
-	if (val is Player):
-		pass
-	else:
-		if (enemy.has_scheduled_action()):
-			var scheduled_action: ScheduledAction = enemy.scheduled_action
+	if (val is Enemy):
+		var action: Action = ia.decide_action(val, player)
+		val.play(action, player)
+		
+	
+	
+func process_action(action: ActionResult, fighter: Character, target: Character):
+	if (fighter.has_scheduled_action()):
+			var scheduled_action: ScheduledAction = fighter.scheduled_action
 		
 			var rounds_left = scheduled_action.rounds_left()
 			
@@ -42,56 +48,52 @@ func _handle_fighter_changed(val: Character):
 				
 				var damage_increase = 0
 				
-				for ability in enemy.abilities:
+				for ability in fighter.abilities:
 					if ability is DamageIncrease:
 						damage_increase += ability.damage_increase
 				
-				player.life -= damage + damage_increase
+				target.life -= damage + damage_increase
 			else:
 				scheduled_action.increase_round()
 				   
 			
 			_toggle_turn()
 			return 
-		else:
-			var action = enemy.play(player)
+	else:		
+		if (action is AttackResult):
+			if (action.isEnqueued):
+				var time = action.roundsToWait
+				fighter.schedule_action(action, time)
+				
+				_toggle_turn()
+				return
 			
-			if (action is AttackResult):
-				if (action.isEnqueued):
-					var time = action.roundsToWait
-					enemy.schedule_action(action, time)
+			var damage = action.damageGiven
+			
+			var damage_increase = 0
+			
+			for ability in fighter.abilities:
+				if ability is DamageIncrease:
+					damage_increase += ability.damage_increase
 					
-					_toggle_turn()
-					return
-				
-				var damage = action.damageGiven
-				
-				var damage_increase = 0
-				
-				for ability in enemy.abilities:
-					if ability is DamageIncrease:
-						damage_increase += ability.damage_increase
-						
-				
-				player.life -= damage + damage_increase
-				
 			
-			if (action is ItemResult):
-				enemy.life += action.life_increase
-				enemy.stamina += action.stamina_increase
-				
-				if (action.damage_increase != 0):
-					var ability = DamageIncrease.new(action.damage_increase)
-					enemy.abilities.append(ability)
+			target.life -= damage + damage_increase
+			
+		
+		if (action is ItemResult):
+			fighter.life += action.life_increase
+			fighter.stamina += action.stamina_increase
+			
+			if (action.damage_increase != 0):
+				var ability = DamageIncrease.new(action.damage_increase)
+				fighter.abilities.append(ability)
 					
 				
 				
-			enemy.decrease_abilities()
-			_toggle_turn()
-	
+			fighter.decrease_abilities()
+		_toggle_turn()
 	
 func _toggle_turn():
-
 	var last_fighter = current_fighter
 	
 	if (last_fighter.life <= 0):
@@ -99,7 +101,7 @@ func _toggle_turn():
 			get_tree().change_scene_to_file("res://lose.tscn")
 		else:
 			get_tree().change_scene_to_file("res://won.tscn")
-			
+		
 	
 	if (current_fighter is Player):
 		current_fighter = enemy
@@ -107,17 +109,15 @@ func _toggle_turn():
 		current_fighter = player
 	toggle_turned.emit(last_fighter)
 	
-func _handle_character_play(character: Character):
+func _handle_character_play(character: Character, action: Action, action_result: ActionResult):
 	await get_tree().create_timer(1).timeout
 	
-	if (character is Player):
-		character.stamina += 5
-		_toggle_turn()
+	process_action(action_result, character, enemy if character is Player else player)
 	
 	
-func _on_player_played(player: Player):
-	_handle_character_play(player)
+func _on_player_played(player: Player, action: Action, action_result: ActionResult):
+	_handle_character_play(player, action, action_result)
 	
 
-func _on_enemy_played(enemy: Enemy):
-	_handle_character_play(enemy)
+func _on_enemy_played(enemy: Enemy, action: Action, action_result: ActionResult):
+	_handle_character_play(enemy, action, action_result)

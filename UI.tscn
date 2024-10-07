@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cpohvip15wwc0"]
+[gd_scene load_steps=19 format=3 uid="uid://cpohvip15wwc0"]
 
 [ext_resource type="Script" path="res://UIManager.gd" id="1_t5ara"]
 [ext_resource type="Script" path="res://Enemy.gd" id="2_0wyy1"]
@@ -22,36 +22,44 @@ bg_color = Color(0, 0, 0, 1)
 bg_color = Color(3.7608e-06, 0.64143, 0.931699, 1)
 corner_detail = 1
 
-[sub_resource type="Resource" id="Resource_awwfa"]
+[sub_resource type="Resource" id="Resource_qbcu6"]
 script = ExtResource("3_t81qx")
 damage = 10
-chance_of_damage = 0
+chance_of_damage = 100
 execution_time = 0
-
-[sub_resource type="Resource" id="Resource_ms5sp"]
-script = ExtResource("3_8ap2d")
 name = "Item Name"
+
+[sub_resource type="Resource" id="Resource_cqlrc"]
+script = ExtResource("3_8ap2d")
 life_increase_type = 1
-life_increase = 50
+life_increase = 100
 stamina_increase_type = 0
-stamina_increase = 10170
+stamina_increase = 0
 damage_increase_type = 0
-damage_increase = 20
+damage_increase = 0
+name = "Item Name"
 
 [sub_resource type="Theme" id="Theme_2kcyw"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hmmug"]
 bg_color = Color(1, 0, 0, 1)
 
+[sub_resource type="Resource" id="Resource_dho0o"]
+script = ExtResource("3_t81qx")
+damage = 10
+chance_of_damage = 100
+execution_time = 0
+name = "Meu pau"
+
 [sub_resource type="Resource" id="Resource_u6535"]
 script = ExtResource("3_8ap2d")
-name = "Eae grupo"
 life_increase_type = 0
 life_increase = 10
 stamina_increase_type = 0
 stamina_increase = 0
 damage_increase_type = 0
 damage_increase = 0
+name = "Item do meu cu"
 
 [node name="Control" type="Control" node_paths=PackedStringArray("fight_manager")]
 layout_mode = 3
@@ -203,10 +211,10 @@ grow_horizontal = 2
 size_flags_horizontal = 4
 script = ExtResource("2_0wyy1")
 max_stamina = 100
-max_life = 500
-life = 249
-attacks = Array[ExtResource("3_t81qx")]([SubResource("Resource_awwfa")])
-items = Array[ExtResource("3_8ap2d")]([SubResource("Resource_ms5sp")])
+max_life = 100
+life = 30
+attacks = Array[ExtResource("3_t81qx")]([SubResource("Resource_qbcu6")])
+items = Array[ExtResource("3_8ap2d")]([SubResource("Resource_cqlrc")])
 metadata/_edit_use_anchors_ = true
 
 [node name="TextureRect" type="TextureRect" parent="Enemy"]
@@ -257,6 +265,7 @@ script = ExtResource("4_aeuey")
 max_stamina = 100
 max_life = 100
 life = 100
+attacks = Array[ExtResource("3_t81qx")]([SubResource("Resource_dho0o")])
 items = Array[ExtResource("3_8ap2d")]([SubResource("Resource_u6535")])
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer/VBoxContainer/AttackButton" to="." method="_on_attack_button_pressed"]
