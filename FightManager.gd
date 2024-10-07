@@ -30,38 +30,31 @@ func start(curr_fighter: Character):
 	current_fighter = curr_fighter
 		
 func _handle_fighter_changed(val: Character):
-	if (val is Enemy):
-		var action: Action = ia.decide_action(val, player)
-		val.play(action, player)
+	if (val.has_scheduled_action()):
+		var scheduled_action: ScheduledAction = val.scheduled_action
+
+		var rounds_left = scheduled_action.rounds_left()
+		
+		if (rounds_left == 0):
+			var result = scheduled_action.action_result
+			val.scheduled_action = null
+			result.already_waited = true
+			process_action(result, val, enemy if val is Player else player)
+		else:
+			scheduled_action.increase_round()
+			_toggle_turn()
+	else:
+		if (val is Enemy):
+			var action: Action = ia.decide_action(val, player)
+			val.play(action, player)
+	
+		
 		
 	
 	
 func process_action(action: ActionResult, fighter: Character, target: Character):
-	if (fighter.has_scheduled_action()):
-			var scheduled_action: ScheduledAction = fighter.scheduled_action
-		
-			var rounds_left = scheduled_action.rounds_left()
-			
-			if (rounds_left == 0):
-				var result = scheduled_action.action_result
-				var damage = result.damageGiven
-				
-				var damage_increase = 0
-				
-				for ability in fighter.abilities:
-					if ability is DamageIncrease:
-						damage_increase += ability.damage_increase
-				
-				target.life -= damage + damage_increase
-			else:
-				scheduled_action.increase_round()
-				   
-			
-			_toggle_turn()
-			return 
-	else:		
-		if (action is AttackResult):
-			if (action.isEnqueued):
+	if (action is AttackResult):
+			if (action.isEnqueued && !action.already_waited):
 				var time = action.roundsToWait
 				fighter.schedule_action(action, time)
 				
@@ -80,18 +73,17 @@ func process_action(action: ActionResult, fighter: Character, target: Character)
 			target.life -= damage + damage_increase
 			
 		
-		if (action is ItemResult):
-			fighter.life += action.life_increase
-			fighter.stamina += action.stamina_increase
-			
-			if (action.damage_increase != 0):
-				var ability = DamageIncrease.new(action.damage_increase)
-				fighter.abilities.append(ability)
-					
+	if (action is ItemResult):
+		fighter.life += action.life_increase
+		fighter.stamina += action.stamina_increase
+		
+		if (action.damage_increase != 0):
+			var ability = DamageIncrease.new(action.damage_increase)
+			fighter.abilities.append(ability)
 				
-				
-			fighter.decrease_abilities()
-		_toggle_turn()
+		fighter.decrease_abilities()
+		
+	_toggle_turn()
 	
 func _toggle_turn():
 	var last_fighter = current_fighter

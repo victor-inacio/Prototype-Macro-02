@@ -10,6 +10,8 @@ var chance_of_damage: int = 100
 @export_range(0, 100)
 var execution_time: int = 0
 
+
+
 func get_result(user: Character, target: Character) -> AttackResult:
 	var result = AttackResult.new()
 	var random = randi_range(0, 100)
