@@ -6,19 +6,19 @@ enum Type {
 }
 
 @export
-var life_increase_type: Type
+var life_increase_type: Type = Type.NUMBER
 
 @export 
 var life_increase: int = 0
 
 @export
-var stamina_increase_type: Type
+var stamina_increase_type: Type = Type.NUMBER
 
 @export
 var stamina_increase: int
 
 @export
-var damage_increase_type: Type
+var damage_increase_type: Type = Type.NUMBER
 
 @export
 var damage_increase: int
