@@ -37,9 +37,11 @@ func _handle_fighter_changed(val: Character):
 		
 		if (rounds_left == 0):
 			var result = scheduled_action.action_result
+			var action = scheduled_action.action
+			
 			val.scheduled_action = null
 			result.already_waited = true
-			process_action(result, val, enemy if val is Player else player)
+			process_action(action, result, val, enemy if val is Player else player)
 		else:
 			scheduled_action.increase_round()
 			_toggle_turn()
@@ -52,15 +54,17 @@ func _handle_fighter_changed(val: Character):
 		
 	
 	
-func process_action(action: ActionResult, fighter: Character, target: Character):
-	if (action.isEnqueued && !action.already_waited):
-		var time = action.roundsToWait
-		fighter.schedule_action(action, time)
+func process_action(action: Action, action_result: ActionResult, fighter: Character, target: Character):
+	if (action_result.isEnqueued && !action_result.already_waited):
+		var time = action_result.roundsToWait
+		fighter.schedule_action(action, action_result, time)
 
 		_toggle_turn()
 		return
+		
+	fighter.stamina -= action.stamina_consumption
 	
-	if (action is AttackResult):
+	if (action_result is AttackResult):
 			
 		if (target.last_action is Dodge):
 			var succeeded = target.last_action_result.success
@@ -71,7 +75,7 @@ func process_action(action: ActionResult, fighter: Character, target: Character)
 				return
 		
 		
-		var damage = action.damageGiven
+		var damage = action_result.damageGiven
 		
 		var damage_increase = 0
 		
@@ -83,7 +87,7 @@ func process_action(action: ActionResult, fighter: Character, target: Character)
 		target.life -= damage + damage_increase
 			
 		
-	if (action is ItemResult):
+	if (action_result is ItemResult):
 		fighter.life += action.life_increase
 		fighter.stamina += action.stamina_increase
 		
@@ -114,7 +118,7 @@ func _toggle_turn():
 func _handle_character_play(character: Character, action: Action, action_result: ActionResult):
 	await get_tree().create_timer(1).timeout
 	
-	process_action(action_result, character, enemy if character is Player else player)
+	process_action(action, action_result, character, enemy if character is Player else player)
 	
 	
 func _on_player_played(player: Player, action: Action, action_result: ActionResult):

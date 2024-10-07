@@ -28,6 +28,7 @@ script = ExtResource("3_s7pl0")
 damage = 10
 chance_of_damage = 100
 name = "Item Name"
+stamina_consumption = 0
 execution_time = 0
 
 [sub_resource type="Theme" id="Theme_2kcyw"]
@@ -46,6 +47,7 @@ stamina_increase = 0
 damage_increase_type = 0
 damage_increase = 0
 name = "Item Name"
+stamina_consumption = 100
 execution_time = 0
 
 [node name="Control" type="Control" node_paths=PackedStringArray("fight_manager")]

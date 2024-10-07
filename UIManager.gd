@@ -57,6 +57,9 @@ func _ready():
 	player_health_bar.max_value = player.max_life
 	player_health_bar.value = player.life
 	
+	player_stamina_bar.max_value = player.max_stamina
+	player_stamina_bar.value = player.stamina
+	
 	enemy_health_bar.max_value = enemy.max_life
 	enemy_health_bar.value = enemy.life
 	
@@ -70,6 +73,11 @@ func _on_attack_button_pressed():
 	item_list.visible = true
 	mode = Character.Mode.ATTACK
 	var action = player.attacks[0]
+	
+	if (player.stamina - action.stamina_consumption <= 0):
+		player.not_enough_stamina.emit()
+		return
+	
 	player.play(action, fight_manager.enemy)
 	
 
@@ -117,7 +125,10 @@ func _on_item_list_item_clicked(index, at_position, mouse_button_index):
 	var enemy = fight_manager.enemy
 	
 	var action = showing_actions[index]
-			
+	
+	if (player.stamina - action.stamina_consumption <= 0):
+		player.not_enough_stamina.emit()
+		return
 	player.play(action, enemy)
 		
 			

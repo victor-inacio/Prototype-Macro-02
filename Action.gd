@@ -3,6 +3,9 @@ class_name Action extends Resource
 @export
 var name: String = "Item Name"
 
+@export
+var stamina_consumption: int = 0
+
 @export_range(0, 100)
 var execution_time: int = 0
 

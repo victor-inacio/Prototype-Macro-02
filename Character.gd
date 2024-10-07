@@ -87,11 +87,10 @@ func decrease_abilities():
 func has_scheduled_action() -> bool:
 	return scheduled_action != null
 
-func schedule_action(action: ActionResult, rounds_to_wait: int):
-	scheduled_action = ScheduledAction.new(action, rounds_to_wait)
+func schedule_action(action: Action, action_result: ActionResult, rounds_to_wait: int):
+	scheduled_action = ScheduledAction.new(action, action_result, rounds_to_wait)
 	
 func play(action: Action, target: Character) -> ActionResult:
-	
 	if (action is Item):
 		var index = 0
 		for item in items:

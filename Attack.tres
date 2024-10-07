@@ -5,6 +5,7 @@
 [resource]
 script = ExtResource("1_36fcj")
 damage = 10
-chance_of_damage = null
+chance_of_damage = 100
 name = "Meu pau"
-execution_time = 3
+stamina_consumption = 20
+execution_time = 0
