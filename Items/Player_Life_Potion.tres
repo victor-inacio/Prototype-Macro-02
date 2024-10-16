@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Item" load_steps=2 format=3 uid="uid://cnwlr65lfy2yg"]
+
+[ext_resource type="Script" path="res://Scripts/Item.gd" id="1_22gwu"]
+
+[resource]
+script = ExtResource("1_22gwu")
+ilimited = false
+quantity = 2
+life_increase_type = 0
+life_increase = 10
+stamina_increase_type = 0
+stamina_increase = 0
+damage_increase_type = 0
+damage_increase = 0
+name = "Life Potion"
+stamina_consumption = 0
+execution_time = 0

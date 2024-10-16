@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Attack" load_steps=2 format=3 uid="uid://c883y7gu86x8g"]
+
+[ext_resource type="Script" path="res://Scripts/Attack.gd" id="1_eupat"]
+
+[resource]
+script = ExtResource("1_eupat")
+damage = 20
+chance_of_damage = 50
+name = "ChargedAttack"
+stamina_consumption = 0
+execution_time = 1

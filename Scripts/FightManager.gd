@@ -30,6 +30,10 @@ func start(curr_fighter: Character):
 	current_fighter = curr_fighter
 		
 func _handle_fighter_changed(val: Character):
+	if (val is Player):
+		val.stamina += val.stamina_per_round
+	
+	
 	if (val.has_scheduled_action()):
 		var scheduled_action: ScheduledAction = val.scheduled_action
 
@@ -49,10 +53,6 @@ func _handle_fighter_changed(val: Character):
 		if (val is Enemy):
 			var action: Action = ia.decide_action(val, player)
 			val.play(action, player)
-	
-		
-		
-	
 	
 func process_action(action: Action, action_result: ActionResult, fighter: Character, target: Character):
 	if (action_result.isEnqueued && !action_result.already_waited):

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Dodge" load_steps=2 format=3 uid="uid://7jji66l82sob"]
+
+[ext_resource type="Script" path="res://Scripts/Dodge.gd" id="1_plfuf"]
+
+[resource]
+script = ExtResource("1_plfuf")
+chance_of_success = 90
+name = "Item Name"
+stamina_consumption = 15
+execution_time = 0

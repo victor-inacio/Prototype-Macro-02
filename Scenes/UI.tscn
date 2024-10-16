@@ -1,14 +1,19 @@
-[gd_scene load_steps=21 format=3 uid="uid://cpohvip15wwc0"]
+[gd_scene load_steps=22 format=3 uid="uid://cpohvip15wwc0"]
 
-[ext_resource type="Script" path="res://UIManager.gd" id="1_t5ara"]
-[ext_resource type="Script" path="res://Enemy.gd" id="2_0wyy1"]
-[ext_resource type="Texture2D" uid="uid://by6d4808paoev" path="res://WhatsApp Image 2024-09-03 at 00.21.10.jpeg" id="3_8nt5c"]
-[ext_resource type="Script" path="res://Dodge.gd" id="3_46mc6"]
-[ext_resource type="Script" path="res://FightManager.gd" id="3_bv7wc"]
-[ext_resource type="Script" path="res://Attack.gd" id="3_s7pl0"]
-[ext_resource type="Script" path="res://Player.gd" id="4_aeuey"]
-[ext_resource type="Resource" uid="uid://dhpuuxet1hmar" path="res://Attack.tres" id="6_8j2tc"]
-[ext_resource type="Script" path="res://Item.gd" id="7_mjbkt"]
+[ext_resource type="Script" path="res://Scripts/UIManager.gd" id="1_e1a7d"]
+[ext_resource type="Script" path="res://Scripts/Enemy.gd" id="2_0avqc"]
+[ext_resource type="Resource" uid="uid://dqtbyjhgj4kid" path="res://Dodge/Enemy/EasyEnemy_Dodge.tres" id="3_4a7oa"]
+[ext_resource type="Script" path="res://Scripts/Attack.gd" id="4_kdrbe"]
+[ext_resource type="Resource" uid="uid://l80merihg8g8" path="res://Attacks/Enemy/Easy/Basic_Attack_EasyEnemy.tres" id="5_q3ho1"]
+[ext_resource type="Texture2D" uid="uid://by6d4808paoev" path="res://Assets/WhatsApp Image 2024-09-03 at 00.21.10.jpeg" id="6_3s4u6"]
+[ext_resource type="Script" path="res://Scripts/FightManager.gd" id="7_d0gte"]
+[ext_resource type="Script" path="res://Scripts/Player.gd" id="8_0m7o4"]
+[ext_resource type="Resource" uid="uid://7jji66l82sob" path="res://Dodge/Player/Player_Dodge.tres" id="9_apuie"]
+[ext_resource type="Resource" uid="uid://13xr3mhd4f02" path="res://Attacks/Player/Player_Attack.tres" id="10_0pi0i"]
+[ext_resource type="Resource" uid="uid://83mb3sjny6ge" path="res://Attacks/Player/Player_Charged_Attack.tres" id="11_ung1f"]
+[ext_resource type="Script" path="res://Scripts/Item.gd" id="12_i2n1h"]
+[ext_resource type="Resource" uid="uid://cq52n25kwdjar" path="res://Items/Player_Stamina_Potion.tres" id="13_awcro"]
+[ext_resource type="Resource" uid="uid://cnwlr65lfy2yg" path="res://Items/Player_Life_Potion.tres" id="14_cqgrl"]
 
 [sub_resource type="Theme" id="Theme_oxgsn"]
 
@@ -24,46 +29,10 @@ bg_color = Color(0, 0, 0, 1)
 bg_color = Color(3.7608e-06, 0.64143, 0.931699, 1)
 corner_detail = 1
 
-[sub_resource type="Resource" id="Resource_bba37"]
-script = ExtResource("3_46mc6")
-chance_of_success = 100
-name = "Item Name"
-stamina_consumption = 0
-execution_time = 0
-
-[sub_resource type="Resource" id="Resource_r2e54"]
-script = ExtResource("3_s7pl0")
-damage = 10
-chance_of_damage = 100
-name = "Item Name"
-stamina_consumption = 0
-execution_time = 0
-
 [sub_resource type="Theme" id="Theme_2kcyw"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hmmug"]
 bg_color = Color(1, 0, 0, 1)
-
-[sub_resource type="Resource" id="Resource_0ei07"]
-script = ExtResource("3_46mc6")
-chance_of_success = 0
-name = "Item Name"
-stamina_consumption = 0
-execution_time = 0
-
-[sub_resource type="Resource" id="Resource_tp17j"]
-script = ExtResource("7_mjbkt")
-ilimited = true
-quantity = 3
-life_increase_type = 0
-life_increase = 0
-stamina_increase_type = 0
-stamina_increase = 0
-damage_increase_type = 0
-damage_increase = 0
-name = "Item Name"
-stamina_consumption = 100
-execution_time = 0
 
 [node name="Control" type="Control" node_paths=PackedStringArray("fight_manager")]
 layout_mode = 3
@@ -72,7 +41,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_t5ara")
+script = ExtResource("1_e1a7d")
 fight_manager = NodePath("FightManager")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
@@ -212,12 +181,12 @@ offset_right = 221.5
 offset_bottom = 491.0
 grow_horizontal = 2
 size_flags_horizontal = 4
-script = ExtResource("2_0wyy1")
+script = ExtResource("2_0avqc")
 max_stamina = 100
-max_life = 100
+max_life = 30
 life = 30
-dodge = SubResource("Resource_bba37")
-attacks = Array[ExtResource("3_s7pl0")]([SubResource("Resource_r2e54")])
+dodge = ExtResource("3_4a7oa")
+attacks = Array[ExtResource("4_kdrbe")]([ExtResource("5_q3ho1")])
 metadata/_edit_use_anchors_ = true
 
 [node name="TextureRect" type="TextureRect" parent="Enemy"]
@@ -226,7 +195,7 @@ offset_left = -18.4998
 offset_right = 556.5
 offset_bottom = 537.0
 scale = Vector2(0.802134, 0.838316)
-texture = ExtResource("3_8nt5c")
+texture = ExtResource("6_3s4u6")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 1
@@ -257,19 +226,19 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_hmmug")
 value = 100.0
 
 [node name="FightManager" type="Node2D" parent="." node_paths=PackedStringArray("player", "enemy")]
-script = ExtResource("3_bv7wc")
+script = ExtResource("7_d0gte")
 player = NodePath("../Player")
 enemy = NodePath("../Enemy")
 
 [node name="Player" type="Node2D" parent="."]
 position = Vector2(-3, 0)
-script = ExtResource("4_aeuey")
+script = ExtResource("8_0m7o4")
 max_stamina = 100
-max_life = 100
-life = 100
-dodge = SubResource("Resource_0ei07")
-attacks = Array[ExtResource("3_s7pl0")]([ExtResource("6_8j2tc")])
-items = Array[ExtResource("7_mjbkt")]([SubResource("Resource_tp17j")])
+max_life = 50
+life = 50
+dodge = ExtResource("9_apuie")
+attacks = Array[ExtResource("4_kdrbe")]([ExtResource("10_0pi0i"), ExtResource("11_ung1f")])
+items = Array[ExtResource("12_i2n1h")]([ExtResource("13_awcro"), ExtResource("14_cqgrl")])
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer/VBoxContainer/AttackButton" to="." method="_on_attack_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer/VBoxContainer/SkillButton" to="." method="_on_skill_button_pressed"]

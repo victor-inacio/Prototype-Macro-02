@@ -5,7 +5,7 @@ func decide_action(character: Character, target: Character) -> Action:
 	
 	var rand_integer = randi_range(0, len(actions) - 1)
 	var action = actions[rand_integer]
-	var index = 0
+	
+	print(action.name)
 	
 	return action
-	

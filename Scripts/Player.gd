@@ -1,5 +1,8 @@
 class_name Player extends Character        
 
+@export
+var stamina_per_round: int = 2
+
 signal not_enough_stamina
 
 var buffed: int = 0:

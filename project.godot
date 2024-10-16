@@ -11,13 +11,13 @@ config_version=5
 [application]
 
 config/name="Prototype-Macro-02"
-run/main_scene="res://UI.tscn"
-config/features=PackedStringArray("4.2", "Forward Plus")
-config/icon="res://icon.svg"
+run/main_scene="res://Scenes/UI.tscn"
+config/features=PackedStringArray("4.3", "Forward Plus")
+config/icon="res://Assets/icon.svg"
 
 [autoload]
 
-Fight="*res://FightManager.gd"
+Fight="*res://Scripts/FightManager.gd"
 
 [display]
 
