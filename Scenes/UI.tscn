@@ -1,11 +1,12 @@
-[gd_scene load_steps=22 format=3 uid="uid://cpohvip15wwc0"]
+[gd_scene load_steps=23 format=3 uid="uid://cpohvip15wwc0"]
 
 [ext_resource type="Script" path="res://Scripts/UIManager.gd" id="1_e1a7d"]
 [ext_resource type="Script" path="res://Scripts/Enemy.gd" id="2_0avqc"]
-[ext_resource type="Resource" uid="uid://dqtbyjhgj4kid" path="res://Dodge/Enemy/EasyEnemy_Dodge.tres" id="3_4a7oa"]
+[ext_resource type="Resource" uid="uid://cisoyykexw2qp" path="res://Dodge/Enemy/Boss_Dodge.tres" id="3_8fvbc"]
 [ext_resource type="Script" path="res://Scripts/Attack.gd" id="4_kdrbe"]
-[ext_resource type="Resource" uid="uid://l80merihg8g8" path="res://Attacks/Enemy/Easy/Basic_Attack_EasyEnemy.tres" id="5_q3ho1"]
+[ext_resource type="Resource" uid="uid://bhvwiomc7cwdg" path="res://Attacks/Enemy/Boss/Basic_Attack_Boss.tres" id="5_eygjg"]
 [ext_resource type="Texture2D" uid="uid://by6d4808paoev" path="res://Assets/WhatsApp Image 2024-09-03 at 00.21.10.jpeg" id="6_3s4u6"]
+[ext_resource type="Resource" uid="uid://c62j02pogqa5x" path="res://Attacks/Enemy/Boss/Charged_Attack_Boss.tres" id="6_12umk"]
 [ext_resource type="Script" path="res://Scripts/FightManager.gd" id="7_d0gte"]
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="8_0m7o4"]
 [ext_resource type="Resource" uid="uid://7jji66l82sob" path="res://Dodge/Player/Player_Dodge.tres" id="9_apuie"]
@@ -183,10 +184,10 @@ grow_horizontal = 2
 size_flags_horizontal = 4
 script = ExtResource("2_0avqc")
 max_stamina = 100
-max_life = 30
-life = 30
-dodge = ExtResource("3_4a7oa")
-attacks = Array[ExtResource("4_kdrbe")]([ExtResource("5_q3ho1")])
+max_life = 40
+life = 40
+dodge = ExtResource("3_8fvbc")
+attacks = Array[ExtResource("4_kdrbe")]([ExtResource("5_eygjg"), ExtResource("6_12umk")])
 metadata/_edit_use_anchors_ = true
 
 [node name="TextureRect" type="TextureRect" parent="Enemy"]

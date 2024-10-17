@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_ugnlx")
-damage = 10
+damage = 5
 chance_of_damage = 100
 name = "BasicAttack"
 stamina_consumption = 0

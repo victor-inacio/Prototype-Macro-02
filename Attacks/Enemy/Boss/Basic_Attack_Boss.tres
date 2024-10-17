@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Attack" load_steps=2 format=3 uid="uid://bhvwiomc7cwdg"]
+
+[ext_resource type="Script" path="res://Scripts/Attack.gd" id="1_ipgan"]
+
+[resource]
+script = ExtResource("1_ipgan")
+damage = 7
+chance_of_damage = 100
+name = "Item Name"
+stamina_consumption = 0
+execution_time = 0
